@@ -4,63 +4,79 @@ import java.util.Date;
 
 public class Movie {
 
-    //Values to be displayed in Movie Detail Field
-    private int id;
-    private String title;
-    private int thumbnailImage;
-    private String plotSynopsis;
-    private Double rating;
-    private Date releaseDate;
+    private int mId;
+    private String mTitle;
+    private String mPosterImageURL;
+    private String mPlotSynopsis;
+    private Double mRating;
+    private Date mReleaseDate;
 
-    public int getId() {
-        return id;
+    //Model for Movie in List
+    public Movie(String title, String posterImageURL) {
+        mTitle = title;
+        mPosterImageURL = posterImageURL;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    //Model for Movie Detail
+    public Movie(int id, String title, String posterImageURL, String plotSynopsis, Double rating, Date releaseDate ){
+        mId = id;
+        mTitle = title;
+        mPosterImageURL = posterImageURL;
+        mPlotSynopsis = plotSynopsis;
+        mRating = rating;
+        mReleaseDate = releaseDate;
+
+
     }
+
 
     public String getTitle() {
-        return title;
+        return mTitle;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        mTitle = title;
     }
 
-    public int getThumbnailImage() {
-        return thumbnailImage;
+    public int getId() {
+        return mId;
     }
 
-    public void setThumbnailImage(int thumbnailImage) {
-        this.thumbnailImage = thumbnailImage;
+    public void setId(int id) {
+        mId = id;
+    }
+
+    public String getPosterImageURL() {
+        return mPosterImageURL;
+    }
+
+    public void setPosterImageURL(String posterImageURL) {
+        mPosterImageURL = posterImageURL;
     }
 
     public String getPlotSynopsis() {
-        return plotSynopsis;
+        return mPlotSynopsis;
     }
 
     public void setPlotSynopsis(String plotSynopsis) {
-        this.plotSynopsis = plotSynopsis;
+        mPlotSynopsis = plotSynopsis;
     }
 
     public Double getRating() {
-        return rating;
+        return mRating;
     }
 
     public void setRating(Double rating) {
-        this.rating = rating;
+        mRating = rating;
     }
 
     public Date getReleaseDate() {
-        return releaseDate;
+        return mReleaseDate;
     }
 
     public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
+        mReleaseDate = releaseDate;
     }
 
-
-
-
 }
+
