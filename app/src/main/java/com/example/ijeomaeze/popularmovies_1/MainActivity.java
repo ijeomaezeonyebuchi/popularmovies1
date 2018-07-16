@@ -2,47 +2,60 @@ package com.example.ijeomaeze.popularmovies_1;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.ijeomaeze.popularmovies_1.model.Movie;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    //Instantiate Object need display content for moviesAPI
+    private RecyclerView mRecyclerView;
+    private MovieAdapter mMovieAdapter;
+    private ArrayList<Movie> mMovieList;
 
-    TextView mTextView;
+    //Instantiate Request Queue needed to make calls with volley
+    private RequestQueue mRequestQueue;
 
     //Construct Movie URL
     String movieAPIKey = BuildConfig.MDB_API_KEY;
     String movieURL = "http://api.themoviedb.org/3/movie/popular?api_key=" + movieAPIKey;
 
-    //Instantiate Request Queue
-    private RequestQueue mRequestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mTextView = (TextView) findViewById(R.id.tv_testresponse);
 
+        mRecyclerView = findViewById(R.id.recyclerView);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+
+        mMovieList = new ArrayList<>();
         mRequestQueue = Volley.newRequestQueue(this);
         fetchMovies();
 
     }
 
     private void fetchMovies() {
-        StringRequest movieStringRequest = new StringRequest(Request.Method.GET, movieURL, onMoviesLoaded, onMoviesError);
-        mRequestQueue.add(movieStringRequest);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, movieURL, null,onMoviesLoaded, onMoviesError);
+
+
     }
 
-    private final Response.Listener<String> onMoviesLoaded = new Response.Listener<String>() {
+    private final Response.Listener<JsonObjectRequest> onMoviesLoaded = new Response.Listener<String>() {
         @Override
         public void onResponse(String response) {
-            Log.i("MainMovie",response.substring(0,500));
+            Log.i("MainMovie",response);
             }
     };
 
