@@ -1,5 +1,6 @@
 package com.example.ijeomaeze.popularmovies_1;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -17,13 +18,24 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MovieAdapter.OnItemClickListener{
     //Instantiate Object need display content for moviesAPI
     private RecyclerView mRecyclerView;
     private MovieAdapter mMovieAdapter;
     private ArrayList<Movie> mMovieList;
+
+    //Instantiate Values as keys to use for Movie Detail
+    public static final String EXTRA_MOVIE_IMAGE_URL = "imageUrl";
+    public static final String EXTRA_MOVIE_TITLE = "movieTitle";
+    public static final String EXTRA_MOVIE_SUMMARY = "movieSummary";
+    public static final String EXTRA_MOVIE_RELEASE_DATE = "releaseDate";
+    public static final String EXTRA_MOVIE_RATING = "movieRating";
+
 
     //Instantiate Request Queue needed to make calls with volley
     private RequestQueue mRequestQueue;
@@ -70,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
                     //Parse values for main screen
                     String movieTitle = movieResult.getString("title");
                     String movieImageUrl =  baseImageURL.concat((movieResult.getString("poster_path")));
+                    String moviePlotSummary = movieResult.getString("overview");
+                    String movieReleaseDate = movieResult.getString("release_date");
+                    Double movieRating = movieResult.getDouble("vote_average");
 
                     //Add values to movieArrayList
                     mMovieList.add(new Movie(movieTitle, movieImageUrl));
@@ -78,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
                 //Bind Movie Date using Adapter
                 mMovieAdapter = new MovieAdapter(MainActivity.this, mMovieList);
                 mRecyclerView.setAdapter(mMovieAdapter);
+                mMovieAdapter.setOnItemClickListener(MainActivity.this);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -93,6 +109,36 @@ public class MainActivity extends AppCompatActivity {
     };
 
 
+    @Override
+    public void onItemClick(int position) {
+        Intent movieDetailIntent = new Intent(this, DetailActivity.class);
+        Movie selectedMovie = mMovieList.get(position);
+
+        movieDetailIntent.putExtra(EXTRA_MOVIE_TITLE, selectedMovie.getTitle());
+        movieDetailIntent.putExtra(EXTRA_MOVIE_IMAGE_URL, selectedMovie.getPosterImageURL());
+        movieDetailIntent.putExtra(EXTRA_MOVIE_SUMMARY, selectedMovie.getPlotSynopsis());
+        movieDetailIntent.putExtra(EXTRA_MOVIE_RATING, selectedMovie.getRating());
+        movieDetailIntent.putExtra(EXTRA_MOVIE_RELEASE_DATE, selectedMovie.getReleaseDate());
+
+        startActivity(movieDetailIntent);
+
+    }
+
+    private String formatDate(String date){
+        SimpleDateFormat dateformatter = new SimpleDateFormat("MMMMM dd, yyyy");
+        String formattedDate = "";
+
+        try {
+            Date currentDate = dateformatter.parse(date);
+            formattedDate = dateformatter.format(currentDate);
+        } catch (ParseException e) {
+            formattedDate = "";
+            e.printStackTrace();
+        }
+
+
+        return formattedDate;
+    }
 }
 
 

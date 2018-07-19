@@ -1,7 +1,5 @@
 package com.example.ijeomaeze.popularmovies_1.model;
 
-import java.util.Date;
-
 public class Movie {
 
     private int mId;
@@ -9,7 +7,7 @@ public class Movie {
     private String mPosterImageURL;
     private String mPlotSynopsis;
     private Double mRating;
-    private Date mReleaseDate;
+    private String mReleaseDate;
 
     //Model for Movie in List
     public Movie(String title, String posterImageURL) {
@@ -18,7 +16,7 @@ public class Movie {
     }
 
     //Model for Movie Detail
-    public Movie(int id, String title, String posterImageURL, String plotSynopsis, Double rating, Date releaseDate ){
+    public Movie(int id, String title, String posterImageURL, String plotSynopsis, Double rating, String releaseDate ){
         mId = id;
         mTitle = title;
         mPosterImageURL = posterImageURL;
@@ -70,11 +68,11 @@ public class Movie {
         mRating = rating;
     }
 
-    public Date getReleaseDate() {
+    public String getReleaseDate() {
         return mReleaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         mReleaseDate = releaseDate;
     }
 
