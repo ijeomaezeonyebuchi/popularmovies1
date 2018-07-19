@@ -1,10 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".DetailActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="6dp">
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/detail_poster_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            tools:src="@drawable/ic_launcher_background"/>
+
+        <TextView
+            android:id="@+id/detail_movie_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#A0000000"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:gravity="center_vertical|center_horizontal"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:minLines="2"
+            app:layout_constraintBottom_toBottomOf="@id/detail_poster_image"
+            tools:text="@string/test_movie"/>
+
+    </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:padding="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/plot"
+        android:textSize="20sp"
+        android:textColor="@android:color/black"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/plot_summary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollHorizontally="false"
+        android:textSize="12sp"
+        android:ellipsize="none"
+        android:paddingTop="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:layout_marginBottom="12dp"
+        android:textColor="@android:color/black"
+        tools:text="@string/test_plot"/>
+
+    <TextView
+        android:paddingLeft="8dp"
+        android:text="@string/user_rating"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/user_rating"
+        android:paddingLeft="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        tools:text="@string/test_rating"
+        android:layout_marginBottom="12dp"/>
+
+
+    <TextView
+        android:paddingLeft="8dp"
+        android:text="@string/release_date"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/release_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        android:paddingLeft="8dp"
+        tools:text="@string/test_date"/>
+
+
+
+
+
+</LinearLayout>
