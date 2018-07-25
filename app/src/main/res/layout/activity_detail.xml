@@ -21,7 +21,7 @@
         <ImageView
             android:id="@+id/detail_poster_image"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="350dp"
             tools:src="@drawable/ic_launcher_background"/>
 
         <TextView
@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollHorizontally="false"
-        android:textSize="12sp"
+        android:textSize="16sp"
         android:ellipsize="none"
         android:paddingTop="8dp"
         android:paddingLeft="8dp"
@@ -101,8 +101,6 @@
         android:textSize="14sp"
         android:paddingLeft="8dp"
         tools:text="@string/test_date"/>
-
-
 
 
 

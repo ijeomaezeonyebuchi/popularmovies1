@@ -6,7 +6,7 @@ public class Movie {
     private String mTitle;
     private String mPosterImageURL;
     private String mPlotSynopsis;
-    private Double mRating;
+    private String mRating;
     private String mReleaseDate;
 
     //Model for Movie in List
@@ -16,8 +16,7 @@ public class Movie {
     }
 
     //Model for Movie Detail
-    public Movie(int id, String title, String posterImageURL, String plotSynopsis, Double rating, String releaseDate ){
-        mId = id;
+    public Movie(String title, String posterImageURL, String plotSynopsis, String rating, String releaseDate ){
         mTitle = title;
         mPosterImageURL = posterImageURL;
         mPlotSynopsis = plotSynopsis;
@@ -36,20 +35,8 @@ public class Movie {
         mTitle = title;
     }
 
-    public int getId() {
-        return mId;
-    }
-
-    public void setId(int id) {
-        mId = id;
-    }
-
     public String getPosterImageURL() {
         return mPosterImageURL;
-    }
-
-    public void setPosterImageURL(String posterImageURL) {
-        mPosterImageURL = posterImageURL;
     }
 
     public String getPlotSynopsis() {
@@ -60,11 +47,11 @@ public class Movie {
         mPlotSynopsis = plotSynopsis;
     }
 
-    public Double getRating() {
+    public String getRating() {
         return mRating;
     }
 
-    public void setRating(Double rating) {
+    public void setRating(String rating) {
         mRating = rating;
     }
 

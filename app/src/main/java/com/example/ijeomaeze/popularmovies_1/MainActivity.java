@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
     //Construct Movie URL
     private static final String movieAPIKey = BuildConfig.MDB_API_KEY;
     private static final String movieURL = "http://api.themoviedb.org/3/movie/popular?api_key=" + movieAPIKey;
-    private static final String baseImageURL = "http://image.tmdb.org/t/p/w185";
+    public static final String baseImageURL = "http://image.tmdb.org/t/p/w185";
 
 
     @Override
@@ -83,11 +83,11 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
                     String movieTitle = movieResult.getString("title");
                     String movieImageUrl =  baseImageURL.concat((movieResult.getString("poster_path")));
                     String moviePlotSummary = movieResult.getString("overview");
-                    String movieReleaseDate = movieResult.getString("release_date");
-                    Double movieRating = movieResult.getDouble("vote_average");
+                    String movieReleaseDate = formatDate(movieResult.getString("release_date"));
+                    String movieRating = String.valueOf(movieResult.getDouble("vote_average"));
 
                     //Add values to movieArrayList
-                    mMovieList.add(new Movie(movieTitle, movieImageUrl));
+                    mMovieList.add(new Movie(movieTitle,movieImageUrl, moviePlotSummary, movieRating, movieReleaseDate));
                 }
 
                 //Bind Movie Date using Adapter
@@ -125,12 +125,14 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
     }
 
     private String formatDate(String date){
-        SimpleDateFormat dateformatter = new SimpleDateFormat("MMMMM dd, yyyy");
-        String formattedDate = "";
+        SimpleDateFormat dateformatter = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate;
 
         try {
             Date currentDate = dateformatter.parse(date);
+            dateformatter.applyPattern("MMMM dd, yyyy");
             formattedDate = dateformatter.format(currentDate);
+
         } catch (ParseException e) {
             formattedDate = "";
             e.printStackTrace();
