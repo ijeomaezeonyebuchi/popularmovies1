@@ -21,7 +21,7 @@
         <ImageView
             android:id="@+id/detail_poster_image"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="300dp"
             tools:src="@drawable/ic_launcher_background"/>
 
         <TextView
@@ -40,6 +40,13 @@
 
     </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
     <TextView
         android:padding="8dp"
@@ -100,8 +107,10 @@
         android:textColor="@android:color/black"
         android:textSize="14sp"
         android:paddingLeft="8dp"
+        android:paddingBottom="8dp"
         tools:text="@string/test_date"/>
 
-
+    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
