@@ -38,7 +38,7 @@ public class DetailActivity extends AppCompatActivity {
 
         //Set Values in Detail UI
         detailMovieTitle.setText(movieTitle);
-        Picasso.get().load(movieImageUrl).fit().centerInside().into(detailPosterImage);
+        Picasso.get().load(movieImageUrl).fit().centerCrop().into(detailPosterImage);
         detailPlotSummary.setText(moviePlotSummary);
         detailRating.setText(movieRating);
         detailReleseDate.setText(movieReleaseDate);
