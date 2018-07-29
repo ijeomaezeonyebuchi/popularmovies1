@@ -14,8 +14,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.ijeomaeze.popularmovies_1.model.Movie;
+import com.example.ijeomaeze.popularmovies_1.network.NetworkSingleton;
 import com.example.ijeomaeze.popularmovies_1.network.QueryUtils;
 
 import org.json.JSONArray;
@@ -45,14 +45,12 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
     private RequestQueue mRequestQueue;
 
     //Construct Movie URL
-    private static final String movieAPIKey = BuildConfig.MDB_API_KEY;
-    private static final String movieURL = "http://api.themoviedb.org/3/movie/popular?api_key=" + movieAPIKey;
-    private static final String movieAPIKeyParam = "api_key=" + movieAPIKey;
     public static final String baseImageURL = "http://image.tmdb.org/t/p/w185";
 
-    private String defaultMovieURL = new QueryUtils().queryByDefault();
-    private String popularMovieURL = new QueryUtils().queryByPopularMovies();
-    private String highestRatedURL =new QueryUtils().queryByTopRatedMovies();
+    //Query URLs
+    public String defaultMovieURL = new QueryUtils().queryByDefault();
+    public String popularMovieURL = new QueryUtils().queryByPopularMovies();
+    public String highestRatedURL =new QueryUtils().queryByTopRatedMovies();
 
 
     @Override
@@ -65,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
 
         mMovieList = new ArrayList<>();
-        mRequestQueue = Volley.newRequestQueue(this);
+        mRequestQueue = NetworkSingleton.getInstance(this).getRequestQueue();
         fetchMovies(defaultMovieURL);
 
     }
