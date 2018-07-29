@@ -16,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ijeomaeze.popularmovies_1.model.Movie;
+import com.example.ijeomaeze.popularmovies_1.network.QueryUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,9 +50,9 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
     private static final String movieAPIKeyParam = "api_key=" + movieAPIKey;
     public static final String baseImageURL = "http://image.tmdb.org/t/p/w185";
 
-    private String baseMovieURL =  "http://api.themoviedb.org/3/movie/";
-    private String popularMovieURL = baseMovieURL;
-    private String highestRatedURL = baseMovieURL;
+    private String defaultMovieURL = new QueryUtils().queryByDefault();
+    private String popularMovieURL = new QueryUtils().queryByPopularMovies();
+    private String highestRatedURL =new QueryUtils().queryByTopRatedMovies();
 
 
     @Override
@@ -65,9 +66,11 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
 
         mMovieList = new ArrayList<>();
         mRequestQueue = Volley.newRequestQueue(this);
-        fetchMovies(movieURL);
+        fetchMovies(defaultMovieURL);
 
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -79,15 +82,15 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case (R.id.most_popular):
-                fetchMovies(movieURL);
-                break;
-            case (R.id.highest_rating):
-                fetchMovies(movieURL);
-                break;
-
+            case R.id.most_popular:
+                fetchMovies(popularMovieURL);
+                return true;
+            case R.id.highest_rating:
+                fetchMovies(highestRatedURL);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     private void fetchMovies(String requestURL) {
