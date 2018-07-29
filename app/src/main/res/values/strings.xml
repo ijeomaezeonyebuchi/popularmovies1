@@ -8,4 +8,7 @@
     <string name="test_date">June 4, 2008</string>
     <string name="test_rating">4.5</string>
     <string name="test_plot">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis purus massa, semper nec convallis eu, elementum nec sapien. Nunc mi risus, molestie non justo ac, mattis ultricies purus. Curabitur volutpat nibh placerat, vestibulum purus at, efficitur felis. Maecenas non maximus turpis. Aenean quis placerat nibh, feugiat faucibus ipsum. Aenean quis vestibulum est. Suspendisse quis dictum sapien. Vestibulum luctus augue tristique, pretium est sit amet, rutrum sem. Praesent a elit viverra, aliquam lorem non, finibus ante. Duis porttitor in tortor ut pulvinar. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae lectus nec urna mattis venenatis. Sed ac velit lacus.</string>
+    <!--Menu Items -->
+    <string name="most_popular">Most Popular</string>
+    <string name="highest_rating">Highest Rated</string>
 </resources>

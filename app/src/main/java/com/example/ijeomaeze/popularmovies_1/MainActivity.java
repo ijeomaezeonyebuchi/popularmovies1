@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -43,7 +46,12 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
     //Construct Movie URL
     private static final String movieAPIKey = BuildConfig.MDB_API_KEY;
     private static final String movieURL = "http://api.themoviedb.org/3/movie/popular?api_key=" + movieAPIKey;
+    private static final String movieAPIKeyParam = "api_key=" + movieAPIKey;
     public static final String baseImageURL = "http://image.tmdb.org/t/p/w185";
+
+    private String baseMovieURL =  "http://api.themoviedb.org/3/movie/";
+    private String popularMovieURL = baseMovieURL;
+    private String highestRatedURL = baseMovieURL;
 
 
     @Override
@@ -57,13 +65,34 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
 
         mMovieList = new ArrayList<>();
         mRequestQueue = Volley.newRequestQueue(this);
-        fetchMovies();
+        fetchMovies(movieURL);
 
     }
 
-    private void fetchMovies() {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.sortby_menu, menu);
+        return true;
+    }
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, movieURL, null,onMoviesLoaded, onMoviesError);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case (R.id.most_popular):
+                fetchMovies(movieURL);
+                break;
+            case (R.id.highest_rating):
+                fetchMovies(movieURL);
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void fetchMovies(String requestURL) {
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, requestURL, null,onMoviesLoaded, onMoviesError);
         mRequestQueue.add(request);
 
     }
