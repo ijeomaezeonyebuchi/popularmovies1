@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        mRecyclerView.setAdapter(mMovieAdapter);
 
         mMovieList = new ArrayList<>();
         mRequestQueue = NetworkSingleton.getInstance(this).getRequestQueue();
@@ -74,11 +75,14 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.sortby_menu, menu);
+
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
             case R.id.most_popular:
                 fetchMovies(popularMovieURL);
@@ -103,27 +107,33 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnIt
         public void onResponse(JSONObject response) {
             //Parse results
             try {
+                //Clear current movieList Before parsing new results
+                mMovieList.clear();
                 JSONArray resultsArray = response.getJSONArray("results");
 
                 //Loop through results in array
                 for(int i= 0; i < resultsArray.length(); i++){
                     JSONObject movieResult = resultsArray.getJSONObject(i);
 
-                    //Parse values for main screen
-                    String movieTitle = movieResult.getString("title");
-                    String movieImageUrl =  baseImageURL.concat((movieResult.getString("poster_path")));
-                    String moviePlotSummary = movieResult.getString("overview");
-                    String movieReleaseDate = formatDate(movieResult.getString("release_date"));
-                    String movieRating = String.valueOf(movieResult.getDouble("vote_average"));
+                    Movie movie = new Movie();
+
+                    //Parse values for main screen nto Movie Object
+                    movie.setTitle(movieResult.getString("title"));
+                    movie.setPosterImageURL(baseImageURL.concat((movieResult.getString("poster_path"))));
+                    movie.setPlotSynopsis(movieResult.getString("overview"));
+                    movie.setReleaseDate(formatDate(movieResult.getString("release_date")));
+                    movie.setRating(String.valueOf(movieResult.getDouble("vote_average")));
 
                     //Add values to movieArrayList
-                    mMovieList.add(new Movie(movieTitle,movieImageUrl, moviePlotSummary, movieRating, movieReleaseDate));
+                    mMovieList.add(movie);
                 }
 
                 //Bind Movie Date using Adapter
                 mMovieAdapter = new MovieAdapter(MainActivity.this, mMovieList);
+                mMovieAdapter.notifyDataSetChanged();
                 mRecyclerView.setAdapter(mMovieAdapter);
                 mMovieAdapter.setOnItemClickListener(MainActivity.this);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }

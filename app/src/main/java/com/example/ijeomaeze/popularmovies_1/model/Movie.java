@@ -1,8 +1,6 @@
 package com.example.ijeomaeze.popularmovies_1.model;
 
 public class Movie {
-
-    private int mId;
     private String mTitle;
     private String mPosterImageURL;
     private String mPlotSynopsis;
@@ -10,10 +8,11 @@ public class Movie {
     private String mReleaseDate;
 
     //Model for Movie in List
-    public Movie(String title, String posterImageURL) {
-        mTitle = title;
-        mPosterImageURL = posterImageURL;
+    public Movie() {
+
     }
+
+
 
     //Model for Movie Detail
     public Movie(String title, String posterImageURL, String plotSynopsis, String rating, String releaseDate ){
@@ -37,6 +36,9 @@ public class Movie {
 
     public String getPosterImageURL() {
         return mPosterImageURL;
+    }
+    public void setPosterImageURL(String posterImageURL) {
+        mPosterImageURL = posterImageURL;
     }
 
     public String getPlotSynopsis() {
